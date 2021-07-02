@@ -1,0 +1,68 @@
+{% extends 'base2.html' %}
+
+{% block content %}
+
+<div class="container mt-3" >
+    <form class="row g-3" method="POST">
+      {% csrf_token %}
+      <div class="col-12">
+        <label for="inputTopic" class="form-label">Topic</label>
+        <input type="text" class="form-control" placeholder="Subtopic" name="topic">
+      </div>
+      <div class="col-12">
+        <label for="inputDescription" class="form-label">Description</label>
+        <input type="text" class="form-control" placeholder="Description" name="description">
+      </div>
+      <div class="col-12">
+        <label for="inputLinks" class="form-label">Links</label>
+        <input type="text" class="form-control"  placeholder="Add Links" name="link">
+      </div>
+      
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary">Add Resource</button>
+      </div>
+    </form>
+  </div>
+    
+
+
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+    <h1><center><strong>{{list_name}}</strong></center></h1>
+
+    {% if all_items %}
+    <!-- <table class="table table-bordered"> -->
+        {% for things in all_items %}
+            
+            <!-- <tr class="table-secondary"> -->
+                
+                <h2><center>{{ things.topic }}</center></h2>
+                <p>{{ things.description }}</p>
+                <a href="{{things.link}}">{{ things.link }}<br/></a>
+                <br>
+                <button type="submit" class="btn btn-outline-secondary"><a href="{% url 'edit' things.id list_id %}">Edit<br></a></button>
+                <br>
+                <!-- <td><center><a href="{% url 'delete' things.id %}">Delete</a></center></td> -->
+            <!-- </tr> -->
+            
+        {% endfor %}
+    <!-- </table> -->
+    {% endif %} 
+
+{% endblock %}

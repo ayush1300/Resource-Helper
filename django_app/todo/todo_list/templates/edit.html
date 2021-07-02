@@ -1,0 +1,21 @@
+<!-- {% extends 'component.html' %} -->
+
+{% block content %}
+
+    {% if componentitem %}
+
+        <form class="d-flex" method="POST">
+            {% csrf_token %}
+            <input class="form-control me-2" type="search" placeholder="Topic"  value="{{componentitem.topic}}" aria-label="Search" name="topic">
+            <input class="form-control me-2" type="search" placeholder="Description"  value="{{componentitem.description}}" aria-label="Search" name="description">
+            <input class="form-control me-2" type="search" placeholder="Link"  value="{{componentitem.link}}" aria-label="Search" name="link">
+            
+
+            <!-- <input type="hidden" value="{{item.completed}}" name="completed"> -->
+
+            <button class="btn btn-outline-secondary" type="submit">Edit Item</button>
+        </form>
+
+    {% endif %}
+
+{% endblock %}
